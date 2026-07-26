@@ -35,7 +35,6 @@ def test_unknown_archimate_type_fails_validation():
 
 
 def test_archimate_type_from_wrong_layer_fails_validation():
-    # "Business Process" is a real ArchiMate type, but not valid for layer="application"
     with pytest.raises(ValidationError):
         ModelElement(**make_valid_element(layer="application", archimate_type="Business Process"))
 

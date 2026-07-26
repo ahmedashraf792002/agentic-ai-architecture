@@ -3,7 +3,7 @@ from typing import Literal
 
 from pydantic import BaseModel, Field, field_validator, model_validator
 
-from archimate_types import ALL_ELEMENT_TYPES, ELEMENT_TYPES_BY_LAYER, RELATIONSHIP_TYPES
+from .archimate_types import ALL_ELEMENT_TYPES, ELEMENT_TYPES_BY_LAYER, RELATIONSHIP_TYPES
 
 Layer = Literal["motivation", "strategy", "business", "application", "technology"]
 Confidence = Literal["observed", "inferred"]
