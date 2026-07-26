@@ -1,11 +1,15 @@
-from datetime import datetime,timezone
+from datetime import UTC, datetime
+
 from sqlalchemy.orm import Session
+
 from backend.models import Job
 
 TERMINAL_STATUSES = {"succeeded", "failed"}
 
 
-def create_job(session: Session, system_id: int, phase: str, run_id: str | None = None) -> Job:
+def create_job(
+    session: Session, system_id: int, phase: str, run_id: str | None = None
+) -> Job:
     job = Job(system_id=system_id, phase=phase, status="queued", run_id=run_id)
     session.add(job)
     session.commit()
@@ -20,9 +24,9 @@ def update_job_status(
     if job is None:
         return None
     if job.status == status:
-        return job  
+        return job
 
-    now = datetime.now(timezone.utc)
+    now = datetime.now(UTC)
     if status == "running" and job.started_at is None:
         job.started_at = now
     if status in TERMINAL_STATUSES:

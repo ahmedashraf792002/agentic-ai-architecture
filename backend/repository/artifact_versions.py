@@ -1,6 +1,8 @@
-from datetime import datetime,timezone
+from datetime import UTC, datetime
+
 from sqlalchemy import select
 from sqlalchemy.orm import Session
+
 from backend.models import ArtifactVersion
 
 
@@ -27,17 +29,20 @@ def create_artifact_version(
 
 
 def update_artifact_approval(
-    session: Session, version_id: int, approval_status: str, approved_by: str | None = None
+    session: Session,
+    version_id: int,
+    approval_status: str,
+    approved_by: str | None = None,
 ) -> ArtifactVersion | None:
     version = session.get(ArtifactVersion, version_id)
     if version is None:
         return None
     if version.approval_status == approval_status:
-        return version  
+        return version
 
     version.approval_status = approval_status
     version.approved_by = approved_by
-    version.approved_at = datetime.now(timezone.utc) if approval_status == "approved" else None
+    version.approved_at = datetime.now(UTC) if approval_status == "approved" else None
     session.commit()
     session.refresh(version)
     return version

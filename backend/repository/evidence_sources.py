@@ -1,13 +1,21 @@
 from sqlalchemy import select
 from sqlalchemy.orm import Session
+
 from backend.models import EvidenceSource
 
 
 def create_evidence_source(
-    session: Session, system_id: int, source_type: str, location: str, description: str | None = None
+    session: Session,
+    system_id: int,
+    source_type: str,
+    location: str,
+    description: str | None = None,
 ) -> EvidenceSource:
     source = EvidenceSource(
-        system_id=system_id, source_type=source_type, location=location, description=description
+        system_id=system_id,
+        source_type=source_type,
+        location=location,
+        description=description,
     )
     session.add(source)
     session.commit()

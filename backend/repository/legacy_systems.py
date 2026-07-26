@@ -1,9 +1,11 @@
-from sqlalchemy import select
 from sqlalchemy.orm import Session
+
 from backend.models import LegacySystem
 
 
-def create_legacy_system(session: Session, name: str, description: str | None = None) -> LegacySystem:
+def create_legacy_system(
+    session: Session, name: str, description: str | None = None
+) -> LegacySystem:
     system = LegacySystem(name=name, description=description)
     session.add(system)
     session.commit()
