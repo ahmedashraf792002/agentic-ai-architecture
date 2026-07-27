@@ -41,6 +41,7 @@ def make_save_model_element_tool(system_id: str, systems_root: str | Path):
         evidence: list[dict],
         relationships: list[dict] | None = None,
     ) :
+        """Save a model element."""
         try:
             element = ModelElement(
                 id=id,
@@ -70,6 +71,7 @@ def make_add_relationship_tool(system_id: str, systems_root: str | Path):
 
     @tool
     def add_relationship(source_element_id: str, target_element_id: str, relationship_type: str):
+        """add relationship."""
 
         source_path = _find_element_path(systems_root, system_id, source_element_id)
         if source_path is None:

@@ -4,7 +4,7 @@ from deepagents import create_deep_agent
 from dotenv import load_dotenv
 
 from agents.backend_config import build_backend, build_permissions
-from agents.models import get_model
+from agents.models import build_model
 from agents.tools import make_add_relationship_tool, make_save_model_element_tool
 
 load_dotenv()
@@ -31,7 +31,7 @@ def build_standalone_agent(
         tools.append(make_add_relationship_tool(system_id, systems_root))
 
     return create_deep_agent(
-        model=get_model(),
+        model=build_model(),
         backend=backend,
         permissions=permissions,
         tools=tools,
