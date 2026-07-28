@@ -1,5 +1,3 @@
-from __future__ import annotations
-
 import os
 
 from dotenv import load_dotenv
@@ -14,5 +12,5 @@ SessionLocal: sessionmaker = sessionmaker(
 )
 
 
-def get_session() -> Session:
+def get_session():
     return SessionLocal()

@@ -42,3 +42,15 @@ def update_job_status(
 
 def get_job(session: Session, job_id: int) -> Job | None:
     return session.get(Job, job_id)
+
+
+def update_job_run_id(
+    session: Session, job_id: int, run_id: str
+) -> Job | None:
+    job = session.get(Job, job_id)
+    if job is None:
+        return None
+    job.run_id = run_id
+    session.commit()
+    session.refresh(job)
+    return job

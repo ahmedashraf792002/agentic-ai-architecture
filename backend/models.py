@@ -43,7 +43,7 @@ class ArtifactVersion(Base):
     __tablename__ = "artifact_versions"
 
     id: Mapped[int] = mapped_column(Integer, primary_key=True, autoincrement=True)
-
+    
     system_id: Mapped[int] = mapped_column(
         ForeignKey("legacy_systems.id"),
         nullable=False,
@@ -57,12 +57,16 @@ class ArtifactVersion(Base):
     author_type: Mapped[str] = mapped_column(String(100), nullable=False)
 
     run_id: Mapped[str | None] = mapped_column(String(255))
-
+    pr_number: Mapped[int | None] = mapped_column(
+        Integer,
+        nullable=True,
+        unique=True,
+    )
     approval_status: Mapped[str] = mapped_column(
         String(100),
         default="pending",
     )
-
+    
     approved_by: Mapped[str | None] = mapped_column(String(255))
 
     approved_at: Mapped[datetime | None] = mapped_column(DateTime)
