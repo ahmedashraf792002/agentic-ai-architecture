@@ -1,82 +1,32 @@
-# Agentic AI Architecture
+# React + TypeScript + Vite
 
-## Overview
-This repository contains the engineering codebase for the Agentic AI Architecture project.
+This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
 
-## Project Structure
+Currently, two official plugins are available:
 
-```text
-backend/   # Backend services
-agents/    # AI agents
-frontend/  # Frontend application
+- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
+- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+
+## React Compiler
+
+The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+
+## Expanding the Oxlint configuration
+
+If you are developing a production application, we recommend enabling type-aware lint rules by installing `oxlint-tsgolint` and editing `.oxlintrc.json`:
+
+```json
+{
+  "$schema": "./node_modules/oxlint/configuration_schema.json",
+  "plugins": ["react", "typescript", "oxc"],
+  "options": {
+    "typeAware": true
+  },
+  "rules": {
+    "react/rules-of-hooks": "error",
+    "react/only-export-components": ["warn", { "allowConstantExport": true }]
+  }
+}
 ```
 
-## Tech Stack
-
-- Python 3.11+
-- PostgreSQL
-- Docker & Docker Compose
-- SQLAlchemy
-- uv
-- Ruff
-- Black
-
-## Environment Setup
-
-1. Clone the repository.
-2. Create a `.env` file from `.env.example`.
-3. Install dependencies:
-
-```bash
-uv sync
-```
-
-4. Start the PostgreSQL database:
-
-```bash
-docker compose up
-```
-
-5. Run the application.
-
-## Environment Variables
-
-The project uses environment variables for configuration.
-
-Required variables are documented in `.env.example`.
-
-Example:
-
-```env
-DATABASE_URL=postgresql://app_user:password@localhost:5432/agentic_ai_db
-```
-
-## Code Quality
-
-Run linting and formatting checks:
-
-```powershell
-.\lint.ps1
-```
-
-or
-
-```bash
-make lint
-```
-
-## Status
-
-### Phase 1 - Epic A
-
-- **A1:** Repository & Python Environment Scaffolding
-- **A2:** PostgreSQL Database Setup (Local Development)
-
-### A2 Highlights
-
-- Local PostgreSQL database using Docker Compose.
-- Dedicated application database user (non-superuser).
-- Database connection configured through `DATABASE_URL`.
-- Environment variables managed using `.env`.
-- `.env.example` provided with placeholder values.
-- Reproducible local development environment using Docker Compose.
+See the [Oxlint rules documentation](https://oxc.rs/docs/guide/usage/linter/rules) for the full list of rules and categories.
