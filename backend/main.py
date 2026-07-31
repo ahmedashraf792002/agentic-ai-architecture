@@ -4,6 +4,7 @@ from pathlib import Path
 
 from dotenv import load_dotenv
 from fastapi import BackgroundTasks, Depends, FastAPI, Header, HTTPException, Query
+from fastapi.middleware.cors import CORSMiddleware
 from sqlalchemy.orm import Session
 
 from backend.database import get_session
@@ -13,6 +14,7 @@ from backend.repository.artifact_versions import list_artifact_versions
 from backend.repository.jobs import create_job, get_job
 from backend.repository.model_elements import list_model_elements
 from backend.webhook import create_webhook_router
+from backend.repository.legacy_systems import get_legacy_system
 
 load_dotenv()
 
@@ -24,9 +26,16 @@ GITHUB_WEBHOOK_SECRET = os.environ.get("GITHUB_WEBHOOK_SECRET", "")
 API_KEY = os.environ.get("API_KEY", "dev-key")
 
 app = FastAPI(title="Agentic AI Architecture API")
-
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["http://localhost:5173"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 async def verify_api_key(x_api_key: str = Header(default=None)):
+
     if API_KEY and x_api_key != API_KEY:
         raise HTTPException(status_code=401, detail="invalid API key")
 
@@ -47,7 +56,6 @@ async def trigger_ingestion(
     session: Session = Depends(get_session),
     auth: None = Depends(verify_api_key),
 ):
-    from backend.repository.legacy_systems import get_legacy_system
 
     system = get_legacy_system(session, system_id)
     if not system:

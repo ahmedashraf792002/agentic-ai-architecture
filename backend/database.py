@@ -13,4 +13,8 @@ SessionLocal: sessionmaker = sessionmaker(
 
 
 def get_session():
-    return SessionLocal()
+    session = SessionLocal()
+    try:
+        yield session
+    finally:
+        session.close()

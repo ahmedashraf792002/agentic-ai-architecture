@@ -27,13 +27,24 @@ class ValidationReport:
 
 def load_raw_elements(systems_root: str | Path, system_id: str):
     system_dir = Path(systems_root) / system_id / "as-is"
+
     if not system_dir.exists():
         return []
-    return [
-        (path, json.loads(path.read_text(encoding="utf-8")))
-        for path in sorted(system_dir.glob("*/*.json"))
-    ]
 
+    elements = []
+
+    for path in sorted(system_dir.glob("*/*.json")):
+        if path.parent.name == "_reports":
+            continue
+
+        elements.append(
+            (
+                path,
+                json.loads(path.read_text(encoding="utf-8"))
+            )
+        )
+
+    return elements
 
 def validate(systems_root: str | Path, system_id: str):
     report = ValidationReport()

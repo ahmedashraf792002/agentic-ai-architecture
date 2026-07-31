@@ -10,12 +10,12 @@ from langchain_groq import ChatGroq
 load_dotenv()
 
 CLAUDE_MODEL = os.environ.get("CLAUDE_MODEL", "anthropic/claude-sonnet-4")
-OLLAMA_MODEL = os.environ.get("OLLAMA_MODEL", "mistral:latest")
-OLLAMA_BASE_URL = os.environ.get("OLLAMA_BASE_URL","https://musical-joining-periodic-automation.trycloudflare.com")
+OLLAMA_MODEL = os.environ.get("OLLAMA_MODEL", "qwen3:4b")
+OLLAMA_BASE_URL = os.environ.get("OLLAMA_BASE_URL",'https://mothers-isaac-campbell-tuesday.trycloudflare.com')
 
 OPENROUTER_MODEL = os.environ.get(
     "OPENROUTER_MODEL",
-    "openai/gpt-oss-20b:free"
+    "nvidia/nemotron-3-nano-omni-30b-a3b-reasoning:free"
 )
 OPENROUTER_API_KEY = os.environ.get("OPENROUTER_API_KEY")
 OPENROUTER_BASE_URL = os.environ.get(
