@@ -1,0 +1,22 @@
+Interview transcript — Operations Manager
+Date: (fictional, for test fixture purposes only)
+Interviewer: (orchestrator-facilitated, per architecture design's SME interview process)
+
+Q: Walk me through what happens when a customer's payment fails.
+
+A: So today, when a payment fails, the order just sits in a "needs review"
+state. Someone on my team — we call that the Order Desk Clerk role,
+it's not a dedicated job title, just whoever's covering the queue that
+day — has to go in and manually decide whether to retry the charge or
+contact the customer. It's not automated at all right now.
+
+Q: How often does that happen?
+
+A: A handful of times a day. Not huge volume, but it's manual toil we'd
+like to get rid of once the new Payment Processing service is live.
+
+Q: Anything else about the order flow worth knowing?
+
+A: Just that once payment goes through, the handoff to shipping is
+automatic — that part already works fine and isn't in scope for this
+project.

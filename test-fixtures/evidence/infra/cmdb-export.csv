@@ -1,0 +1,4 @@
+asset_name,asset_type,environment,owner_team,notes
+Payment-Database,Database Server,production,Payments Team,"Hosts payment authorization records. NOTE FOR FIXTURE READERS: this row and the aws_db_instance.payment_database resource in main.tf describe the SAME physical database under two different naming conventions (snake_case in Terraform vs Title-Case-with-hyphens in the CMDB export). This is the intentional near-duplicate for testing F1's reconciler."
+Order-API-Server,Application Server,production,Platform Team,"Hosts the Order API. Corresponds to aws_instance.order_api_server in main.tf."
+Payment-API-Server,Application Server,production,Payments Team,"Hosts the Payment API. Corresponds to aws_instance.payment_api_server in main.tf."

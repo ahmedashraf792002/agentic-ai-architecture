@@ -1,0 +1,33 @@
+# Order Platform integration overview (fixture, deliberately minimal)
+# Not a strict OpenAPI document -- a lightweight description of
+# service-to-service calls, sufficient for integration-mapper (E5).
+
+integrations:
+  - source: OrderService
+    target: PaymentInterface
+    protocol: HTTP POST
+    endpoint: /authorize
+    description: >
+      OrderService.submit_for_payment calls PaymentInterface.post_authorize
+      to authorize payment for an order (see code/order-service/main.py and
+      code/payment-service/main.py). This is the real, valid cross-component
+      relationship this fixture expects integration-mapper to find --
+      typically a Serving or Flow relationship depending on how it's framed.
+
+  - source: OrderService
+    target: legacy-billing-service
+    protocol: HTTP POST
+    endpoint: /reconcile-invoice
+    description: >
+      INTENTIONAL INVALID REFERENCE -- for testing E5/F2, NOT a real
+      integration. "legacy-billing-service" does not appear anywhere else
+      in this evidence set (not in code/, not in infra/, not in business/).
+      No ingestion subagent should ever produce an element with this id or
+      name from the other evidence files, so any relationship pointing at
+      it is unresolvable by construction. integration-mapper's own
+      instructions require it to confirm a target id already exists among
+      already-written elements before adding a relationship -- this entry
+      exists to verify that check actually rejects the reference (E5's own
+      DoD) rather than inventing a placeholder element, and that the
+      validator's needs_review / violation reporting (F2) surfaces it
+      clearly for the human PR reviewer instead of silently dropping it.
